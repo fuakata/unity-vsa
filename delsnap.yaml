@@ -1,0 +1,33 @@
+# This is a playbook to delete a snapshot using the Ansible Volume Module for Unity. 
+
+---
+- name: Gather information
+  hosts: localhost
+  connection: local
+
+  vars:
+    unispherehost: "192.168.25.20"
+    username: "admin"
+    password: "Password123!"
+    verifycert: False
+    pool_name: "pool"
+    host_type: 1
+    vol_name: "vol01"
+    snapshot_name: "snap01"
+    description: "Ansible_Volume"
+    cap_unit: "GB"
+    state: "present"
+
+  collections:
+  - dellemc.unity 
+
+  tasks:
+    - name: Delete a snapshot
+      dellemc_unity_snapshot:
+         unispherehost: "{{unispherehost}}"
+         username: "{{username}}"
+         password: "{{password}}"
+         verifycert: "{{verifycert}}"
+         snapshot_name: "{{snapshot_name}}"
+         state: "absent" 
+ 

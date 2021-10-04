@@ -1,0 +1,35 @@
+# This is a playbook to create a volume using the Ansible Volume Module for Unity. 
+---
+- name: Gather information
+  hosts: localhost
+  connection: local
+
+  vars:
+    unispherehost: "192.168.25.20"
+    username: "admin"
+    password: "Password123!"
+    verifycert: False
+    pool_name: "pool"
+    host_type: 1
+    vol_name: "vol01"
+    description: "Ansible_Volume"
+    cap_unit: "GB"
+    state: "present"
+
+  collections:
+  - dellemc.unity 
+
+  tasks:
+    - name: Create Volume
+      dellemc_unity_volume:
+         unispherehost: "{{unispherehost}}"
+         username: "{{username}}"
+         password: "{{password}}"
+         verifycert: "{{verifycert}}"
+         vol_name: "{{vol_name}}"
+         description: "{{description}}"
+         pool_name: "{{pool_name}}"
+         size: 1024
+         cap_unit: "{{cap_unit}}"
+         state: "{{state}}"
+ 
